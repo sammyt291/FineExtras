@@ -4,7 +4,7 @@ main: com.fineextras.FineExtras
 api-version: '1.21'
 description: A utility plugin with player commands for Spigot, Paper, and Folia
 author: FineExtras Team
-website: https://github.com/fineextras
+website: https://github.com/sammyt291/FineExtras
 
 # Folia support
 folia-supported: true
@@ -46,7 +46,22 @@ commands:
     usage: /<command> <0-10|reset> [player]
   gravity:
     description: Set a player's gravity
-    usage: /<command> <player> <value|reset>
+    usage: /<command> <value|reset> [player]
+  flyspeed:
+    description: Set your fly speed
+    usage: /<command> <0-10|reset> [player]
+  walkspeed:
+    description: Set your walk/sprint speed
+    usage: /<command> <0-10|reset> [player]
+  runspeed:
+    description: Set your walk/sprint speed
+    usage: /<command> <0-10|reset> [player]
+  sprintspeed:
+    description: Set your walk/sprint speed
+    usage: /<command> <0-10|reset> [player]
+  swimspeed:
+    description: Set your swim speed
+    usage: /<command> <0-10|reset> [player]
 
 permissions:
   fineextras.*:
@@ -66,6 +81,13 @@ permissions:
       fineextras.speed: true
       fineextras.speed.others: true
       fineextras.gravity: true
+      fineextras.gravity.others: true
+      fineextras.flyspeed: true
+      fineextras.flyspeed.others: true
+      fineextras.walkspeed: true
+      fineextras.walkspeed.others: true
+      fineextras.swimspeed: true
+      fineextras.swimspeed.others: true
 
   fineextras.tp2p:
     description: Allows teleporting one player to another
@@ -116,5 +138,33 @@ permissions:
     default: op
 
   fineextras.gravity:
-    description: Allows changing player gravity
+    description: Allows changing your own gravity
+    default: op
+
+  fineextras.gravity.others:
+    description: Allows changing other players' gravity
+    default: op
+
+  fineextras.flyspeed:
+    description: Allows changing your own fly speed
+    default: op
+
+  fineextras.flyspeed.others:
+    description: Allows changing other players' fly speed
+    default: op
+
+  fineextras.walkspeed:
+    description: Allows changing your own walk/sprint speed
+    default: op
+
+  fineextras.walkspeed.others:
+    description: Allows changing other players' walk/sprint speed
+    default: op
+
+  fineextras.swimspeed:
+    description: Allows changing your own swim speed
+    default: op
+
+  fineextras.swimspeed.others:
+    description: Allows changing other players' swim speed
     default: op
