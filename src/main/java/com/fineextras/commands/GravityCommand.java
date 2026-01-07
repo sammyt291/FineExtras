@@ -2,6 +2,8 @@ package com.fineextras.commands;
 
 import com.fineextras.FineExtras;
 import com.fineextras.util.MessageUtil;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -10,10 +12,18 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Set player gravity
- * Usage: /gravity <player> <value|reset>
+ * Set player gravity using the attribute system
+ * Usage: /gravity <value|reset> [player]
+ * 
+ * Uses Attribute.GRAVITY (default: 0.08)
+ * - 0 = no gravity (float in place)
+ * - 0.08 = normal gravity
+ * - Higher values = stronger gravity (fall faster)
+ * - Negative values = reverse gravity (float upward)
  */
 public class GravityCommand extends BaseCommand {
+
+    private static final double DEFAULT_GRAVITY = 0.08;
 
     public GravityCommand(FineExtras plugin) {
         super(plugin);
@@ -28,25 +38,43 @@ public class GravityCommand extends BaseCommand {
             return true;
         }
 
-        if (args.length < 2) {
+        if (args.length < 1) {
             sender.sendMessage(MessageUtil.PREFIX + "§cUsage: " + getUsage());
             return true;
         }
 
-        Player target = getPlayer(args[0]);
-        if (target == null) {
-            sender.sendMessage(MessageUtil.PREFIX + "§cPlayer §e" + args[0] + " §cis not online.");
-            return true;
-        }
+        Player target;
+        String valueArg = args[0];
 
-        String valueArg = args[1];
-
+        // Check if resetting
         if (valueArg.equalsIgnoreCase("reset")) {
-            // Reset gravity to default (enabled)
-            target.setGravity(true);
-            
+            if (args.length > 1) {
+                if (!sender.hasPermission("fineextras.gravity.others")) {
+                    if (sender instanceof Player) {
+                        MessageUtil.sendError((Player) sender, "You don't have permission to change other players' gravity.");
+                    }
+                    return true;
+                }
+                target = getPlayer(args[1]);
+                if (target == null) {
+                    sender.sendMessage(MessageUtil.PREFIX + "§cPlayer §e" + args[1] + " §cis not online.");
+                    return true;
+                }
+            } else {
+                if (!isPlayer(sender)) {
+                    return true;
+                }
+                target = (Player) sender;
+            }
+
+            // Reset gravity to default
+            AttributeInstance gravityAttr = target.getAttribute(Attribute.GRAVITY);
+            if (gravityAttr != null) {
+                gravityAttr.setBaseValue(DEFAULT_GRAVITY);
+            }
+
             if (target.equals(sender)) {
-                MessageUtil.sendSuccess((Player) sender, "Reset your gravity to default.");
+                MessageUtil.sendSuccess((Player) sender, "Reset your gravity to default (" + DEFAULT_GRAVITY + ").");
             } else {
                 MessageUtil.sendSuccess((Player) sender, "Reset §e" + target.getName() + "§a's gravity to default.");
                 MessageUtil.sendSuccess(target, "Your gravity was reset by §e" + sender.getName() + "§a.");
@@ -55,27 +83,48 @@ public class GravityCommand extends BaseCommand {
         }
 
         // Parse gravity value
-        float gravityValue;
+        double gravityValue;
         try {
-            gravityValue = Float.parseFloat(valueArg);
+            gravityValue = Double.parseDouble(valueArg);
         } catch (NumberFormatException e) {
             sender.sendMessage(MessageUtil.PREFIX + "§cInvalid gravity value. Use a number or 'reset'.");
             return true;
         }
 
-        // Gravity in Minecraft is boolean - true/false
-        // A value of 0 disables gravity, any other value enables it
-        // We use the float for informational purposes but Bukkit only supports on/off
-        boolean hasGravity = gravityValue != 0;
-        target.setGravity(hasGravity);
-
-        String gravityStatus = hasGravity ? "enabled" : "disabled";
-        
-        if (target.equals(sender)) {
-            MessageUtil.sendSuccess((Player) sender, "Set your gravity to §e" + gravityStatus + "§a (value: " + gravityValue + ").");
+        // Get target player
+        if (args.length > 1) {
+            if (!sender.hasPermission("fineextras.gravity.others")) {
+                if (sender instanceof Player) {
+                    MessageUtil.sendError((Player) sender, "You don't have permission to change other players' gravity.");
+                }
+                return true;
+            }
+            target = getPlayer(args[1]);
+            if (target == null) {
+                sender.sendMessage(MessageUtil.PREFIX + "§cPlayer §e" + args[1] + " §cis not online.");
+                return true;
+            }
         } else {
-            MessageUtil.sendSuccess((Player) sender, "Set §e" + target.getName() + "§a's gravity to §e" + gravityStatus + "§a (value: " + gravityValue + ").");
-            MessageUtil.sendSuccess(target, "Your gravity was set to §e" + gravityStatus + "§a by §e" + sender.getName() + "§a.");
+            if (!isPlayer(sender)) {
+                return true;
+            }
+            target = (Player) sender;
+        }
+
+        // Set gravity using attribute system
+        AttributeInstance gravityAttr = target.getAttribute(Attribute.GRAVITY);
+        if (gravityAttr == null) {
+            sender.sendMessage(MessageUtil.PREFIX + "§cCould not access gravity attribute.");
+            return true;
+        }
+
+        gravityAttr.setBaseValue(gravityValue);
+
+        if (target.equals(sender)) {
+            MessageUtil.sendSuccess((Player) sender, "Set your gravity to §e" + gravityValue + "§a.");
+        } else {
+            MessageUtil.sendSuccess((Player) sender, "Set §e" + target.getName() + "§a's gravity to §e" + gravityValue + "§a.");
+            MessageUtil.sendSuccess(target, "Your gravity was set to §e" + gravityValue + "§a by §e" + sender.getName() + "§a.");
         }
 
         return true;
@@ -84,9 +133,9 @@ public class GravityCommand extends BaseCommand {
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return filterCompletions(getOnlinePlayerNames(), args[0]);
-        } else if (args.length == 2) {
-            return filterCompletions(Arrays.asList("0", "0.5", "1", "1.5", "2", "reset"), args[1]);
+            return filterCompletions(Arrays.asList("0", "0.04", "0.08", "0.16", "-0.08", "reset"), args[0]);
+        } else if (args.length == 2 && sender.hasPermission("fineextras.gravity.others")) {
+            return filterCompletions(getOnlinePlayerNames(), args[1]);
         }
         return new ArrayList<>();
     }
@@ -98,12 +147,12 @@ public class GravityCommand extends BaseCommand {
 
     @Override
     public String getDescription() {
-        return "Set a player's gravity (0 = no gravity, any other value = normal gravity)";
+        return "Set a player's gravity (0 = no gravity, 0.08 = default, negative = reverse)";
     }
 
     @Override
     public String getUsage() {
-        return "/gravity <player> <value|reset>";
+        return "/gravity <value|reset> [player]";
     }
 
     @Override

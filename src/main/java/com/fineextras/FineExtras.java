@@ -43,6 +43,11 @@ public class FineExtras extends JavaPlugin {
         registerCommandIfAvailable("tpr", new TprCommand(this));
         registerCommandIfAvailable("speed", new SpeedCommand(this));
         registerCommandIfAvailable("gravity", new GravityCommand(this));
+        registerCommandIfAvailable("flyspeed", new FlySpeedCommand(this));
+        registerCommandIfAvailable("walkspeed", new WalkSpeedCommand(this));
+        registerCommandIfAvailable("runspeed", new WalkSpeedCommand(this));
+        registerCommandIfAvailable("sprintspeed", new WalkSpeedCommand(this));
+        registerCommandIfAvailable("swimspeed", new SwimSpeedCommand(this));
 
         getLogger().info("FineExtras has been enabled!");
         getLogger().info("Running on " + (TaskScheduler.isFolia() ? "Folia" : "Spigot/Paper"));
