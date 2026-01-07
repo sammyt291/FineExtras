@@ -1,0 +1,120 @@
+name: FineExtras
+version: ${project.version}
+main: com.fineextras.FineExtras
+api-version: '1.21'
+description: A utility plugin with player commands for Spigot, Paper, and Folia
+author: FineExtras Team
+website: https://github.com/fineextras
+
+# Folia support
+folia-supported: true
+
+commands:
+  fineextras:
+    description: Main FineExtras command with all subcommands
+    usage: /<command> <subcommand> [args...]
+    aliases: [fe]
+  tp2p:
+    description: Teleport one player to another
+    usage: /<command> <player1> <player2>
+  ci:
+    description: Clear your inventory
+    usage: /<command> [invonly] [player]
+  clearinventory:
+    description: Clear your inventory
+    usage: /<command> [invonly] [player]
+  gmc:
+    description: Set gamemode to Creative
+    usage: /<command> [player]
+  gms:
+    description: Set gamemode to Survival
+    usage: /<command> [player]
+  gma:
+    description: Set gamemode to Adventure
+    usage: /<command> [player]
+  gmsp:
+    description: Set gamemode to Spectator
+    usage: /<command> [player]
+  tpa:
+    description: Request to teleport to a player
+    usage: /<command> <player>
+  tpr:
+    description: Request a player to teleport to you
+    usage: /<command> <player>
+  speed:
+    description: Set your movement speed
+    usage: /<command> <0-10|reset> [player]
+  gravity:
+    description: Set a player's gravity
+    usage: /<command> <player> <value|reset>
+
+permissions:
+  fineextras.*:
+    description: Gives access to all FineExtras commands
+    default: op
+    children:
+      fineextras.tp2p: true
+      fineextras.clearinventory: true
+      fineextras.clearinventory.others: true
+      fineextras.gamemode.creative: true
+      fineextras.gamemode.survival: true
+      fineextras.gamemode.adventure: true
+      fineextras.gamemode.spectator: true
+      fineextras.gamemode.others: true
+      fineextras.tpa: true
+      fineextras.tpr: true
+      fineextras.speed: true
+      fineextras.speed.others: true
+      fineextras.gravity: true
+
+  fineextras.tp2p:
+    description: Allows teleporting one player to another
+    default: op
+
+  fineextras.clearinventory:
+    description: Allows clearing your own inventory
+    default: op
+
+  fineextras.clearinventory.others:
+    description: Allows clearing other players' inventories
+    default: op
+
+  fineextras.gamemode.creative:
+    description: Allows switching to Creative mode
+    default: op
+
+  fineextras.gamemode.survival:
+    description: Allows switching to Survival mode
+    default: op
+
+  fineextras.gamemode.adventure:
+    description: Allows switching to Adventure mode
+    default: op
+
+  fineextras.gamemode.spectator:
+    description: Allows switching to Spectator mode
+    default: op
+
+  fineextras.gamemode.others:
+    description: Allows changing other players' gamemodes
+    default: op
+
+  fineextras.tpa:
+    description: Allows sending teleport requests to other players
+    default: true
+
+  fineextras.tpr:
+    description: Allows requesting other players to teleport to you
+    default: true
+
+  fineextras.speed:
+    description: Allows changing your own speed
+    default: op
+
+  fineextras.speed.others:
+    description: Allows changing other players' speed
+    default: op
+
+  fineextras.gravity:
+    description: Allows changing player gravity
+    default: op
