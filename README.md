@@ -107,7 +107,7 @@ Changing another player's gamemode requires `fineextras.gamemode.others` permiss
 
 ### Requirements
 - Java 21 or higher
-- Maven 3.6+
+- Gradle 8.12+ (or use the included wrapper)
 
 ### Build Commands
 
@@ -116,11 +116,16 @@ Changing another player's gamemode requires `fineextras.gamemode.others` permiss
 git clone https://github.com/yourusername/FineExtras.git
 cd FineExtras
 
-# Build the plugin
-mvn clean package
+# Build the plugin using Gradle wrapper
+./gradlew shadowJar
 
-# The JAR file will be in target/FineExtras-1.0.0.jar
+# Or on Windows
+gradlew.bat shadowJar
+
+# The JAR file will be in build/libs/FineExtras-1.0.0.jar
 ```
+
+The project uses the Shadow plugin to create a shaded JAR with all dependencies properly packaged.
 
 ## Compatibility
 

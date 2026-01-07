@@ -23,7 +23,15 @@
 hs_err_pid*
 replay_pid*
 
-# Maven
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Maven (legacy)
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -32,8 +40,7 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+.mvn/
 
 # IDE
 .idea/
@@ -46,6 +53,7 @@ buildNumber.properties
 .vscode/
 *.swp
 *~
+out/
 
 # OS
 .DS_Store

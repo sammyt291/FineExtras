@@ -1,5 +1,5 @@
 name: FineExtras
-version: ${project.version}
+version: ${version}
 main: com.fineextras.FineExtras
 api-version: '1.21'
 description: A utility plugin with player commands for Spigot, Paper, and Folia
