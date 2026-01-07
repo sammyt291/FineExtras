@@ -113,7 +113,7 @@ Changing another player's gamemode requires `fineextras.gamemode.others` permiss
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/FineExtras.git
+git clone https://github.com/sammyt291/FineExtras.git
 cd FineExtras
 
 # Build the plugin using Gradle wrapper
