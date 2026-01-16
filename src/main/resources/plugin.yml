@@ -43,7 +43,7 @@ commands:
     usage: /<command> <player>
   speed:
     description: Set your movement speed
-    usage: /<command> <0-10|reset> [player]
+    usage: /<command> <0-10|reset>
   gravity:
     description: Set a player's gravity
     usage: /<command> <value|reset> [player]

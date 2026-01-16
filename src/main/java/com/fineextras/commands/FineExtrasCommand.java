@@ -127,9 +127,9 @@ public class FineExtrasCommand implements CommandExecutor, TabCompleter {
 
         // Movement commands
         player.sendMessage("§6§lMovement:");
-        MessageUtil.sendHelpEntry(player, "/fe speed <0-10|reset> [player]", "Set movement speed");
+        MessageUtil.sendHelpEntry(player, "/fe speed <0-10|reset>", "Set movement speed");
         player.sendMessage("  §7Speed type depends on state: flying, swimming, or walking");
-        MessageUtil.sendHelpEntry(player, "/fe gravity <player> <value|reset>", "Set player gravity");
+        MessageUtil.sendHelpEntry(player, "/fe gravity <value|reset> [player]", "Set player gravity");
         player.sendMessage("  §7Use §e0 §7to disable gravity, any other value enables it");
         player.sendMessage("");
 
