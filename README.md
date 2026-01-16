@@ -77,6 +77,16 @@ Changing another player's gamemode requires `fineextras.gamemode.others` permiss
 - Any other value enables normal gravity
 - Use `reset` to restore normal gravity
 
+### Attribute Commands
+
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/maxhealth <value\|reset> [player]` | Set maximum health | `fineextras.maxhealth` |
+
+**Max Health Command:**
+- Uses the attribute system to update max health on 1.20.4+ and 1.21+ servers
+- Use `reset` to restore the default max health value
+
 ## Permissions
 
 | Permission | Description | Default |
@@ -95,6 +105,8 @@ Changing another player's gamemode requires `fineextras.gamemode.others` permiss
 | `fineextras.speed` | Change your own speed | OP |
 | `fineextras.speed.others` | Change others' speed | OP |
 | `fineextras.gravity` | Change player gravity | OP |
+| `fineextras.maxhealth` | Change your own max health | OP |
+| `fineextras.maxhealth.others` | Change others' max health | OP |
 
 ## Installation
 

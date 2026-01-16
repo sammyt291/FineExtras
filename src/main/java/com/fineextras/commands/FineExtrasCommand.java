@@ -42,6 +42,7 @@ public class FineExtrasCommand implements CommandExecutor, TabCompleter {
         subCommands.put("tpdeny", new TpDenyCommand(plugin));
         subCommands.put("speed", new SpeedCommand(plugin));
         subCommands.put("gravity", new GravityCommand(plugin));
+        subCommands.put("maxhealth", new MaxHealthCommand(plugin));
     }
 
     @Override
@@ -131,6 +132,11 @@ public class FineExtrasCommand implements CommandExecutor, TabCompleter {
         player.sendMessage("  §7Speed type depends on state: flying, swimming, or walking");
         MessageUtil.sendHelpEntry(player, "/fe gravity <value|reset> [player]", "Set player gravity");
         player.sendMessage("  §7Use §e0 §7to disable gravity, any other value enables it");
+        player.sendMessage("");
+
+        // Attribute commands
+        player.sendMessage("§6§lAttributes:");
+        MessageUtil.sendHelpEntry(player, "/fe maxhealth <value|reset> [player]", "Set maximum health");
         player.sendMessage("");
 
         MessageUtil.sendHelpFooter(player);
