@@ -5,6 +5,7 @@ import com.fineextras.util.MessageUtil;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -70,7 +71,8 @@ public class GravityCommand extends BaseCommand {
         // Check if resetting
         if (valueArg.equalsIgnoreCase("reset")) {
             // Reset gravity to default
-            AttributeInstance gravityAttr = target.getAttribute(Attribute.GENERIC_GRAVITY);
+            LivingEntity livingEntity = target;
+            AttributeInstance gravityAttr = livingEntity.getAttribute(Attribute.GENERIC_GRAVITY);
             if (gravityAttr != null) {
                 gravityAttr.setBaseValue(DEFAULT_GRAVITY);
             }
@@ -94,7 +96,8 @@ public class GravityCommand extends BaseCommand {
         }
 
         // Set gravity using attribute system
-        AttributeInstance gravityAttr = target.getAttribute(Attribute.GENERIC_GRAVITY);
+        LivingEntity livingEntity = target;
+        AttributeInstance gravityAttr = livingEntity.getAttribute(Attribute.GENERIC_GRAVITY);
         if (gravityAttr == null) {
             sender.sendMessage(MessageUtil.PREFIX + "§cCould not access gravity attribute.");
             return true;
