@@ -5,6 +5,7 @@ import com.fineextras.util.MessageUtil;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -59,7 +60,8 @@ public class MaxHealthCommand extends BaseCommand {
             }
         }
 
-        AttributeInstance maxHealthAttr = target.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        LivingEntity livingEntity = target;
+        AttributeInstance maxHealthAttr = livingEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if (maxHealthAttr == null) {
             sender.sendMessage(MessageUtil.PREFIX + "§cCould not access max health attribute.");
             return true;

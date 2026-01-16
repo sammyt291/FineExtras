@@ -5,6 +5,7 @@ import com.fineextras.util.MessageUtil;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -67,7 +68,8 @@ public class SwimSpeedCommand extends BaseCommand {
             }
 
             // Reset swim speed to default
-            AttributeInstance swimAttr = target.getAttribute(Attribute.WATER_MOVEMENT_EFFICIENCY);
+            LivingEntity livingEntity = target;
+            AttributeInstance swimAttr = livingEntity.getAttribute(Attribute.WATER_MOVEMENT_EFFICIENCY);
             if (swimAttr != null) {
                 swimAttr.setBaseValue(DEFAULT_SWIM_SPEED);
             }
@@ -118,7 +120,8 @@ public class SwimSpeedCommand extends BaseCommand {
 
         // Set swim speed using attribute system
         // Convert 0-10 scale to 0-1 (water_movement_efficiency is 0-1)
-        AttributeInstance swimAttr = target.getAttribute(Attribute.WATER_MOVEMENT_EFFICIENCY);
+        LivingEntity livingEntity = target;
+        AttributeInstance swimAttr = livingEntity.getAttribute(Attribute.WATER_MOVEMENT_EFFICIENCY);
         if (swimAttr == null) {
             sender.sendMessage(MessageUtil.PREFIX + "§cCould not access swim speed attribute.");
             return true;
