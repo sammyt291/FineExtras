@@ -47,6 +47,9 @@ commands:
   gravity:
     description: Set a player's gravity
     usage: /<command> <value|reset> [player]
+  maxhealth:
+    description: Set a player's max health
+    usage: /<command> <value|reset> [player]
   flyspeed:
     description: Set your fly speed
     usage: /<command> <0-10|reset> [player]
@@ -82,6 +85,8 @@ permissions:
       fineextras.speed.others: true
       fineextras.gravity: true
       fineextras.gravity.others: true
+      fineextras.maxhealth: true
+      fineextras.maxhealth.others: true
       fineextras.flyspeed: true
       fineextras.flyspeed.others: true
       fineextras.walkspeed: true
@@ -143,6 +148,14 @@ permissions:
 
   fineextras.gravity.others:
     description: Allows changing other players' gravity
+    default: op
+
+  fineextras.maxhealth:
+    description: Allows changing your own max health
+    default: op
+
+  fineextras.maxhealth.others:
+    description: Allows changing other players' max health
     default: op
 
   fineextras.flyspeed:

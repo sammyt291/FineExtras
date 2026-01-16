@@ -43,6 +43,7 @@ public class FineExtras extends JavaPlugin {
         registerCommandIfAvailable("tpr", new TprCommand(this));
         registerCommandIfAvailable("speed", new SpeedCommand(this));
         registerCommandIfAvailable("gravity", new GravityCommand(this));
+        registerCommandIfAvailable("maxhealth", new MaxHealthCommand(this));
         registerCommandIfAvailable("flyspeed", new FlySpeedCommand(this));
         registerCommandIfAvailable("walkspeed", new WalkSpeedCommand(this));
         registerCommandIfAvailable("runspeed", new WalkSpeedCommand(this));
