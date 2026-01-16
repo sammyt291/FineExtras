@@ -17,7 +17,7 @@ import java.util.List;
  * Usage: /gravity <value|reset> [player]
  *        /gravity <player> <value|reset>
  * 
- * Uses Attribute.GENERIC_GRAVITY (default: 0.08)
+ * Uses Attribute.GRAVITY (default: 0.08)
  * - 0 = no gravity (float in place)
  * - 0.08 = normal gravity
  * - Higher values = stronger gravity (fall faster)
@@ -72,7 +72,7 @@ public class GravityCommand extends BaseCommand {
         if (valueArg.equalsIgnoreCase("reset")) {
             // Reset gravity to default
             LivingEntity livingEntity = target;
-            AttributeInstance gravityAttr = livingEntity.getAttribute(Attribute.GENERIC_GRAVITY);
+            AttributeInstance gravityAttr = livingEntity.getAttribute(Attribute.GRAVITY);
             if (gravityAttr != null) {
                 gravityAttr.setBaseValue(DEFAULT_GRAVITY);
             }
@@ -97,7 +97,7 @@ public class GravityCommand extends BaseCommand {
 
         // Set gravity using attribute system
         LivingEntity livingEntity = target;
-        AttributeInstance gravityAttr = livingEntity.getAttribute(Attribute.GENERIC_GRAVITY);
+        AttributeInstance gravityAttr = livingEntity.getAttribute(Attribute.GRAVITY);
         if (gravityAttr == null) {
             sender.sendMessage(MessageUtil.PREFIX + "§cCould not access gravity attribute.");
             return true;
